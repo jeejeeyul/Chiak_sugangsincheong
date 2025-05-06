@@ -1,0 +1,186 @@
+/* style.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* 기본 배경을 하얀색으로 설정 */
+    color: #333; /* 텍스트 기본 색상은 어두운 색으로 */
+}
+
+header {
+    background-color: #2196F3; /* 파란색 헤더 */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.login-container {
+    margin-top: 10px;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    background-color: #1e88e5; /* 파란색 로그인 버튼 */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.login-btn:hover {
+    background-color: #1976d2; /* 버튼 hover 색상 */
+}
+
+main {
+    padding: 20px;
+}
+
+.courses {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2196F3; /* 파란색 제목 */
+}
+
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* 강좌들이 중앙에 정렬되도록 함 */
+}
+
+.course-item {
+    background-color: #f9f9f9; /* 하얀색에 가까운 연한 회색 배경 */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%; /* 기본적으로 한 줄에 하나씩 */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.course-item h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000000; /* 강좌 제목을 검은색으로 변경 */
+}
+
+.enroll-btn {
+    background-color: #2196F3; /* 파란색 */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.enroll-btn:hover {
+    background-color: #1976d2; /* 버튼 hover 색상 */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2196F3; /* 파란색 */
+    color: white;
+}
+
+/* 반응형 디자인 */
+@media (min-width: 768px) {
+    .course-item {
+        width: 100%; /* 태블릿 이상에서는 한 줄에 하나씩 표시 */
+    }
+}
+
+@media (max-width: 768px) {
+    .course-item {
+        width: 100%; /* 화면이 작은 경우 한 줄에 하나씩 */
+    }
+
+    .login-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-align: left;
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #2196F3;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.final-apply-btn {
+    background-color: #2196F3;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.final-apply-btn:hover {
+    background-color: #1976d2;
+}

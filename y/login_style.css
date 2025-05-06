@@ -1,0 +1,141 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    padding-bottom: 50px; /* footer와 겹치지 않도록 여백 추가 */
+}
+
+/* 인증 컨테이너 스타일 */
+.auth-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* 폼 입력 스타일 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #2196F3;
+    outline: none;
+}
+
+/* 버튼 스타일 */
+button {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1976d2;
+}
+
+/* 폼 전환 링크 */
+.switch-form {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.switch-form span {
+    color: #2196F3;
+    cursor: pointer;
+}
+
+/* 헤더 색상 */
+.auth-container h2 {
+    color: #2196F3;
+}
+
+/* footer 스타일 */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2196F3;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+/* 반응형 디자인: 화면 크기에 따른 스타일 조정 */
+
+/* 모바일 화면 */
+@media (max-width: 600px) {
+    .auth-container {
+        padding: 20px;
+        max-width: 90%; /* 작은 화면에서는 너비를 90%로 설정 */
+    }
+
+    button {
+        font-size: 14px; /* 모바일에서 버튼 글씨를 작게 */
+    }
+
+    input[type="text"], input[type="password"] {
+        font-size: 14px; /* 모바일에서 입력 글씨 크기 조정 */
+    }
+}
+
+/* 태블릿 화면 */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .auth-container {
+        max-width: 70%; /* 태블릿에서는 너비를 70%로 설정 */
+    }
+
+    button {
+        font-size: 15px; /* 태블릿에서 버튼 글씨 크기 약간 키움 */
+    }
+
+    input[type="text"], input[type="password"] {
+        font-size: 15px; /* 태블릿에서 입력 글씨 크기 조정 */
+    }
+}
+
+/* 데스크탑 화면 */
+@media (min-width: 1025px) {
+    .auth-container {
+        max-width: 400px; /* 데스크탑에서 고정된 너비 유지 */
+    }
+
+    button {
+        font-size: 16px; /* 데스크탑에서 버튼 글씨 크기 */
+    }
+
+    input[type="text"], input[type="password"] {
+        font-size: 16px; /* 데스크탑에서 입력 글씨 크기 */
+    }
+}

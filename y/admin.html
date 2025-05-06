@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 화면</title>
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>관리자 화면<br><h4>꼭 로그인해주세요!</h4></h1>
+
+        <!-- 강좌 선택 -->
+        <div class="course-selection">
+            <label for="course">강좌 선택:</label>
+            <select id="course">
+                <option value="">강좌를 선택하세요</option>
+                <option value="course1">강좌 1</option>
+                <option value="course2">강좌 2</option>
+                <option value="course3">강좌 3</option>
+            </select>
+        </div>
+
+        <!-- 강좌 신청 인원 표 -->
+        <div id="course-details" style="display:none;">
+            <h2>신청 인원</h2>
+            <table id="student-table">
+                <thead>
+                    <tr>
+                        <th>학번</th>
+                        <th>이름</th>
+                        <th>취소</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 학생 정보가 여기에 동적으로 추가됩니다. -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 강좌 관리 -->
+        <div class="course-management">
+            <button id="create-course-btn" >강좌 생성</button>
+            <button id="delete-course-btn" >강좌 삭제</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 수강신청 시스템</p>
+    </footer>
+<!-- Firebase App (필수) -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="./firebaseConfig.js" type="module"></script>
+    <script src="./admin.js" type="module"></script>
+    <script>
+       
+    </script>
+</body>
+</html>

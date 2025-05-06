@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인 프로필</title>
+    <link rel="stylesheet" href="profile_style.css">
+</head>
+<body>
+    <div class="top-bar">
+    <button class="back-btn" onclick="window.location.href = './index.html'">← 돌아가기</button>
+</div>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>안녕하세요, <span id="user-name"></span>님</h1>
+            <div class="profile-actions">
+                <button class="logout-btn">로그아웃</button>
+                <button class="edit-btn">정보 수정</button>
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <p><strong>학번:</strong> <span id="student-id"></span></p>
+            <p><strong>이름:</strong> <span id="student-name"></span></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 수강신청 시스템</p>
+    </footer>
+<!-- Firebase App (필수) -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+
+<!-- Firebase Authentication -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
+<!-- Firebase Realtime Database -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="./firebaseConfig.js" type="module"></script>
+<script src="./profile.js" type="module"></script>
+<script src="./logout.js" type="module"></script>
+</body>
+</html>
