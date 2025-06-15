@@ -1,4 +1,3 @@
-/* style.css */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,18 +6,40 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff; /* 기본 배경을 하얀색으로 설정 */
-    color: #333; /* 텍스트 기본 색상은 어두운 색으로 */
+    background-color: #ffffff;
+    color: #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    height: 100%;
 }
 
 header {
-    background-color: #2196F3; /* 파란색 헤더 */
-    color: white;
+    background-color: white;
+    color: black;
     padding: 20px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
-h1 {
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.header-img {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+
+.header-text {
     font-size: 24px;
 }
 
@@ -28,7 +49,7 @@ h1 {
 
 .login-btn {
     padding: 10px 20px;
-    background-color: #1e88e5; /* 파란색 로그인 버튼 */
+    background-color: #1e88e5;
     color: white;
     border: none;
     cursor: pointer;
@@ -37,10 +58,11 @@ h1 {
 }
 
 .login-btn:hover {
-    background-color: #1976d2; /* 버튼 hover 색상 */
+    background-color: #1976d2;
 }
 
 main {
+    flex: 1;
     padding: 20px;
 }
 
@@ -54,22 +76,22 @@ h2 {
     font-size: 22px;
     margin-bottom: 20px;
     text-align: center;
-    color: #2196F3; /* 파란색 제목 */
+    color: #2196F3;
 }
 
 .course-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* 강좌들이 중앙에 정렬되도록 함 */
+    justify-content: center;
 }
 
 .course-item {
-    background-color: #f9f9f9; /* 하얀색에 가까운 연한 회색 배경 */
+    background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 100%; /* 기본적으로 한 줄에 하나씩 */
+    width: 100%;
     text-align: center;
     box-sizing: border-box;
 }
@@ -77,11 +99,11 @@ h2 {
 .course-item h3 {
     font-size: 18px;
     margin-bottom: 10px;
-    color: #000000; /* 강좌 제목을 검은색으로 변경 */
+    color: #000000;
 }
 
 .enroll-btn {
-    background-color: #2196F3; /* 파란색 */
+    background-color: #2196F3;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -90,26 +112,26 @@ h2 {
 }
 
 .enroll-btn:hover {
-    background-color: #1976d2; /* 버튼 hover 색상 */
+    background-color: #1976d2;
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #2196F3; /* 파란색 */
+    background-color: #2196F3;
     color: white;
+    margin-top: auto;
 }
 
-/* 반응형 디자인 */
 @media (min-width: 768px) {
     .course-item {
-        width: 100%; /* 태블릿 이상에서는 한 줄에 하나씩 표시 */
+        width: 100%;
     }
 }
 
 @media (max-width: 768px) {
     .course-item {
-        width: 100%; /* 화면이 작은 경우 한 줄에 하나씩 */
+        width: 100%;
     }
 
     .login-btn {
@@ -183,4 +205,11 @@ footer {
 
 .final-apply-btn:hover {
     background-color: #1976d2;
+}
+
+.final-apply-btn:disabled {
+    background-color: #bdbdbd;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 0.7;
 }

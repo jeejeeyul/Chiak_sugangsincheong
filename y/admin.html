@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 화면</title>
     <link rel="stylesheet" href="admin_style.css">
+    <link rel="icon" type="image/png" href="./channels4_profile.jpg">
 </head>
 <body>
     <div class="admin-container">
@@ -40,8 +41,9 @@
 
         <!-- 강좌 관리 -->
         <div class="course-management">
-            <button id="create-course-btn" >강좌 생성</button>
-            <button id="delete-course-btn" >강좌 삭제</button>
+            <button id="create-course-btn">강좌 생성</button>
+            <button id="delete-course-btn">강좌 삭제</button>
+            <button id="export-excel-btn">명단 뽑기</button> <!-- 추가 -->
         </div>
     </div>
 
@@ -58,6 +60,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
     <script src="./firebaseConfig.js" type="module"></script>
     <script src="./admin.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script>
        
     </script>

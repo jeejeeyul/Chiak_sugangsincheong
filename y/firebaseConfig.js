@@ -1,3 +1,4 @@
+// Firebase 설정 및 초기화
 const firebaseConfig = {
   apiKey: "AIzaSyC_Ty8iUullX5NzV8K9eiMuDAsviM2UTr0",
   authDomain: "chiaksugangsincheong.firebaseapp.com",
@@ -9,6 +10,8 @@ const firebaseConfig = {
   measurementId: "G-N8HDX69BKR",
 };
 
+// Firebase 앱 초기화
 firebase.initializeApp(firebaseConfig);
+// 인증 객체, DB 객체 export
 export const auth = firebase.auth();
 export const database = firebase.database();

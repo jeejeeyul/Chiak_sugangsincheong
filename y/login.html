@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <link rel="stylesheet" href="login_style.css">
-    <!-- Firebase App -->
-
+        <link rel="icon" type="image/png" href="./channels4_profile.jpg">
 </head>
 <body>
-    <header>
-        <h1>강좌 수강신청 시스템</h1>
-    </header>
-
     <main>
+        <div class="inline-header">
+            <img src="https://yt3.googleusercontent.com/YipfsXpLt7azjryoaRHpR8PFXcxUtOY0Cir3I3EhK_LswybfGno_ggWwfDU5cZHsMq0sXnbI=s900-c-k-c0x00ffffff-no-rj"
+                 alt="치악고등학교 로고"
+                 class="header-img">
+            <h1 class="header-text">치악고등학교</h1>
+        </div>
+
+        <!-- 로그인/회원가입 폼 -->
         <div class="auth-container">
             <!-- 로그인 폼 -->
             <div id="login-form" class="auth-form">
@@ -29,7 +32,7 @@
                     </div>
                     <button type="submit" class="login-btn">로그인</button>
                     <p class="switch-form">
-                        아직 계정이 없으신가요? <span onclick="toggleForm()">회원가입</span>
+                        아직 계정이 없으신가요? <br><span onclick="toggleForm()">회원가입</span>
                     </p>
                 </form>
             </div>
@@ -37,7 +40,7 @@
             <!-- 회원가입 폼 -->
             <div id="signup-form" class="auth-form" style="display: none;">
                 <h2>회원가입</h2>
-                <form  onsubmit="return false;" class="form">
+                <form onsubmit="return false;" class="form">
                     <div class="form-group">
                         <label for="new-username">아이디(이메일)</label>
                         <input type="text" id="new-username" name="new-username" placeholder="아이디를 입력하세요" required>
@@ -50,19 +53,17 @@
                         <label for="confirm-password">비밀번호 확인</label>
                         <input type="password" id="confirm-password" name="confirm-password" placeholder="비밀번호 확인" required>
                     </div>
-                    <!-- 학번 입력 필드 추가 -->
                     <div class="form-group">
                         <label for="student-id">학번</label>
                         <input type="text" id="student-id" name="student-id" placeholder="학번을 입력하세요" required>
                     </div>
-                    <!-- 이름 입력 필드 추가 -->
                     <div class="form-group">
                         <label for="name">이름</label>
                         <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
                     </div>
                     <button type="submit" class="signup-btn">회원가입</button>
                     <p class="switch-form">
-                        이미 계정이 있으신가요? <span onclick="toggleForm()">로그인</span>
+                        이미 계정이 있으신가요? <br><span onclick="toggleForm()">로그인</span>
                     </p>
                 </form>
             </div>
@@ -70,7 +71,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 강좌 수강신청 시스템</p>
+        <p>&copy; 2025 수강신청 시스템</p>
     </footer>
 
     <script>
@@ -81,25 +82,20 @@
             resetForm(loginForm);
             resetForm(signupForm);
 
-            // 로그인 폼과 회원가입 폼을 서로 전환
             loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
             signupForm.style.display = signupForm.style.display === "none" ? "block" : "none";
         }
+
         function resetForm(form) {
-        // form 태그 안의 모든 입력 값 초기화
-        const inputs = form.querySelectorAll('input');
-        inputs.forEach(input => input.value = '');}
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.value = '');
+        }
     </script>
-    <!-- Firebase App (필수) -->
-<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 
-<!-- Firebase Authentication -->
-<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
-
-<!-- Firebase Realtime Database -->
-<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
     <script src="./firebaseConfig.js" type="module"></script>
     <script src="./login.js" type="module"></script>
-
 </body>
 </html>

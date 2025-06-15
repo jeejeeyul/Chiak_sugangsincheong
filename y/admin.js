@@ -1,79 +1,83 @@
 import { database, auth } from "./firebaseConfig.js";
 
-// 강좌 데이터 (임시 데이터)
-const courses = {
-  "course1": [
-    { studentId: "2021001", name: "김철수" },
-    { studentId: "2021002", name: "이영희" },
-  ],
-  "course2": [
-    { studentId: "2021010", name: "박지훈" },
-    { studentId: "2021020", name: "최미경" },
-  ],
-  "course3": [{ studentId: "2021030", name: "홍길동" }],
-};
-const courseSelect = document.getElementById("course");
-courseSelect.addEventListener("click", loadCourseDetails);
-const createCourseBtn = document.getElementById("create-course-btn");
-const deleteCourseBtn = document.getElementById("delete-course-btn");
-createCourseBtn.addEventListener("click", createCourse);
-deleteCourseBtn.addEventListener("click", deleteCourse);
-// 강좌를 선택했을 때 학생 데이터를 로드하고 표에 표시하는 함수
+// 강좌 목록 동기화
+function loadCourses() {
+  database.ref("courses").once("value").then((snapshot) => {
+    const coursesData = snapshot.val() || {};
+    const courseSelect = document.getElementById("course");
+    courseSelect.innerHTML = '<option value="">강좌를 선택하세요</option>';
+    Object.keys(coursesData).forEach((courseId) => {
+      const option = document.createElement("option");
+      option.value = courseId;
+      option.textContent = courseId;
+      courseSelect.appendChild(option);
+    });
+  });
+}
+
+// 강좌별 신청자 목록 불러오기
 function loadCourseDetails() {
-  const courseId = courseSelect.value;
+  const courseId = document.getElementById("course").value;
   const courseDetailsDiv = document.getElementById("course-details");
   const studentTableBody = document.querySelector("#student-table tbody");
-
-  // 표를 초기화
   studentTableBody.innerHTML = "";
 
   if (courseId) {
-    // 강좌 데이터를 가져옴
-    const students = courses[courseId];
-    students.forEach((student) => {
-      const row = document.createElement("tr");
+    // users에서 신청자 목록 조회
+    database.ref("users").once("value").then((snap) => {
+      const users = snap.val() || {};
+      const students = Object.values(users).filter(
+        (u) => u.isconfirmed && u.subject === courseId
+      );
+      students.forEach((student) => {
+        const row = document.createElement("tr");
+        const studentIdCell = document.createElement("td");
+        studentIdCell.textContent = student.studentId;
+        row.appendChild(studentIdCell);
 
-      // 학번
-      const studentIdCell = document.createElement("td");
-      studentIdCell.textContent = student.studentId;
-      row.appendChild(studentIdCell);
+        const nameCell = document.createElement("td");
+        nameCell.textContent = student.name;
+        row.appendChild(nameCell);
 
-      // 이름
-      const nameCell = document.createElement("td");
-      nameCell.textContent = student.name;
-      row.appendChild(nameCell);
+        const cancelCell = document.createElement("td");
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "취소";
+        cancelButton.onclick = function () {
+          cancelEnrollment(courseId, student.studentId);
+        };
+        cancelCell.appendChild(cancelButton);
+        row.appendChild(cancelCell);
 
-      // 취소 버튼
-      const cancelCell = document.createElement("td");
-      const cancelButton = document.createElement("button");
-      cancelButton.textContent = "취소";
-      cancelButton.onclick = function () {
-        cancelEnrollment(courseId, student.studentId);
-      };
-      cancelCell.appendChild(cancelButton);
-      row.appendChild(cancelCell);
-
-      studentTableBody.appendChild(row);
+        studentTableBody.appendChild(row);
+      });
+      courseDetailsDiv.style.display = "block";
     });
-
-    // 강좌 세부사항 표시
-    courseDetailsDiv.style.display = "block";
   } else {
-    // 강좌를 선택하지 않았으면 세부사항 숨김
     courseDetailsDiv.style.display = "none";
   }
 }
 
-// 강좌 신청 취소 함수
+// 신청 취소 (DB 반영)
 function cancelEnrollment(courseId, studentId) {
-  const students = courses[courseId];
-  const index = students.findIndex(
-    (student) => student.studentId === studentId
-  );
-  if (index !== -1) {
-    students.splice(index, 1); // 학생 정보 삭제
-    loadCourseDetails(); // 변경된 데이터로 다시 로드
-  }
+  // 해당 studentId를 가진 user 찾기
+  database.ref("users").once("value").then((snap) => {
+    const users = snap.val() || {};
+    const userEntry = Object.entries(users).find(
+      ([, u]) => u.studentId === studentId && u.subject === courseId
+    );
+    if (userEntry) {
+      const [uid] = userEntry;
+      // 1. users/{uid}에서 isconfirmed, subject 초기화
+      database.ref("users/" + uid).update({
+        isconfirmed: false,
+        subject: "",
+      });
+      // 2. courses/{courseId}/nowPeople 감소
+      database.ref("courses/" + courseId + "/nowPeople").transaction((val) => Math.max(0, (val || 1) - 1));
+      // 3. 화면 갱신
+      setTimeout(loadCourseDetails, 500);
+    }
+  });
 }
 
 // 강좌 생성 함수
@@ -88,16 +92,11 @@ function createCourse() {
     maxPeople != "" &&
     !isNaN(maxPeople)
   ) {
-    const courseSelect = document.getElementById("course");
-    const newOption = document.createElement("option");
-    newOption.value = newCourse;
-    newOption.textContent = newCourse;
-    courseSelect.appendChild(newOption);
     auth.onAuthStateChanged((user) => {
       if (user) {
         database
-          .ref("courses")
-          .push({
+          .ref("courses/" + newCourse)
+          .set({
             courseName: newCourse,
             explanation: explanation,
             maxPeople: Number(maxPeople),
@@ -107,6 +106,7 @@ function createCourse() {
           })
           .then(() => {
             alert(`${newCourse} 강좌가 생성되었습니다.`);
+            loadCourses();
           })
           .catch((error) => {
             console.error("강좌 생성 실패!", error);
@@ -131,12 +131,8 @@ function deleteCourse() {
             .ref("courses/" + courseId)
             .remove()
             .then(() => {
-              delete courses[courseId]; // 강좌 데이터 삭제
-              const optionToRemove = document.querySelector(
-                `option[value="${courseId}"]`
-              );
-              optionToRemove.remove(); // 드롭다운에서 강좌 삭제
-              loadCourseDetails(); // 세부사항 비우기
+              loadCourses();
+              loadCourseDetails();
               alert(`${courseId} 강좌가 삭제되었습니다.`);
             })
             .catch((error) => {
@@ -149,3 +145,41 @@ function deleteCourse() {
     alert("삭제할 강좌를 선택하세요.");
   }
 }
+
+// 명단 엑셀 다운로드 (SheetJS 활용)
+function exportExcel() {
+  const courseId = document.getElementById("course").value;
+  if (!courseId) {
+    alert("강좌를 선택하세요.");
+    return;
+  }
+  database.ref("users").once("value").then((snap) => {
+    const users = snap.val() || {};
+    // 신청자만 추출
+    const students = Object.values(users)
+      .filter((u) => u.isconfirmed && u.subject === courseId)
+      .map((u) => ({
+        학번: u.studentId,
+        이름: u.name,
+        출석: "", // 출석 여부는 빈 칸으로 두고, 엑셀에서 직접 체크 가능
+      }));
+    if (students.length === 0) {
+      alert("신청자가 없습니다.");
+      return;
+    }
+    // SheetJS로 엑셀 생성 및 다운로드
+    const ws = XLSX.utils.json_to_sheet(students);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "명단");
+    XLSX.writeFile(wb, `${courseId}_명단.xlsx`);
+  });
+}
+
+// 이벤트 연결
+document.getElementById("course").addEventListener("change", loadCourseDetails);
+document.getElementById("create-course-btn").addEventListener("click", createCourse);
+document.getElementById("delete-course-btn").addEventListener("click", deleteCourse);
+document.getElementById("export-excel-btn").addEventListener("click", exportExcel);
+
+// 페이지 로딩 시 강좌 목록 불러오기
+window.addEventListener("DOMContentLoaded", loadCourses);

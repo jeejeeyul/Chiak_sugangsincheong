@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수강신청 시스템</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./channels4_profile.jpg">
 </head>
 <body>
     <header>
-        <h1>수강신청 시스템</h1>
+        <h1>
+            <div class="header-content">
+                <img src="https://yt3.googleusercontent.com/YipfsXpLt7azjryoaRHpR8PFXcxUtOY0Cir3I3EhK_LswybfGno_ggWwfDU5cZHsMq0sXnbI=s900-c-k-c0x00ffffff-no-rj" alt="치악고등학교" class="header-img">
+                <span class="header-text">치악고등학교</span>
+            </div>
+        </h1>
         <div class="login-container">
             <a href="login.html">
                 <button class="login-btn" id="loginBtn" style="display: none;">로그인</button>
@@ -31,9 +37,10 @@
         </section>
     </main>
 
-    <footer>
+    <footer> 
         <p>&copy; 2025 수강신청 시스템</p>
     </footer>
+
     <div id="modal" class="modal hidden" >
         <div class="modal-content" >
           <span class="close-btn" >&times;</span>
@@ -44,17 +51,18 @@
           <button class="final-apply-btn">수강 신청</button>
         </div>
       </div>
-        <!-- Firebase App (필수) -->
-        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 
-        <!-- Firebase Authentication -->
-        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
-        
-        <!-- Firebase Realtime Database -->
-        <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
-            <script src="./firebaseConfig.js" type="module"></script>
-            <script src="./home.js" type="module"></script>
-            <script src="./modal.js" type="module"></script>
+    <!-- Firebase App (필수) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+    <script src="./firebaseConfig.js" type="module"></script>
+    <script src="./home.js" type="module"></script>
+    <script src="./modal.js" type="module"></script>
+    <script src="./sugangsincheong.js" type="module"></script>
 </body>
 </html>

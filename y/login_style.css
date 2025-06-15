@@ -1,4 +1,9 @@
-/* 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -8,7 +13,28 @@ body {
     height: 100vh;
     margin: 0;
     flex-direction: column;
-    padding-bottom: 50px; /* footer와 겹치지 않도록 여백 추가 */
+    padding-bottom: 50px; 
+}
+
+
+.inline-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.inline-header .header-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.inline-header .header-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
 }
 
 /* 인증 컨테이너 스타일 */
@@ -18,7 +44,7 @@ body {
     padding: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 550px; 
     text-align: center;
 }
 
@@ -88,54 +114,52 @@ footer {
     background-color: #2196F3;
     color: white;
     text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
+    padding: 20px ;
 }
 
-/* 반응형 디자인: 화면 크기에 따른 스타일 조정 */
 
 /* 모바일 화면 */
 @media (max-width: 600px) {
     .auth-container {
         padding: 20px;
-        max-width: 90%; /* 작은 화면에서는 너비를 90%로 설정 */
+        max-width: 90%; 
     }
 
     button {
-        font-size: 14px; /* 모바일에서 버튼 글씨를 작게 */
+        font-size: 14px;
     }
 
     input[type="text"], input[type="password"] {
-        font-size: 14px; /* 모바일에서 입력 글씨 크기 조정 */
+        font-size: 14px; 
     }
 }
 
 /* 태블릿 화면 */
 @media (min-width: 601px) and (max-width: 1024px) {
     .auth-container {
-        max-width: 70%; /* 태블릿에서는 너비를 70%로 설정 */
+        max-width: 80%; 
     }
 
     button {
-        font-size: 15px; /* 태블릿에서 버튼 글씨 크기 약간 키움 */
+        font-size: 15px; 
     }
 
     input[type="text"], input[type="password"] {
-        font-size: 15px; /* 태블릿에서 입력 글씨 크기 조정 */
+        font-size: 15px; 
     }
 }
 
 /* 데스크탑 화면 */
 @media (min-width: 1025px) {
     .auth-container {
-        max-width: 400px; /* 데스크탑에서 고정된 너비 유지 */
+        max-width: 450px; 
     }
 
     button {
-        font-size: 16px; /* 데스크탑에서 버튼 글씨 크기 */
+        font-size: 16px; 
     }
 
     input[type="text"], input[type="password"] {
-        font-size: 16px; /* 데스크탑에서 입력 글씨 크기 */
+        font-size: 16px; 
     }
 }
