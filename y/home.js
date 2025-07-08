@@ -24,15 +24,23 @@ database.ref("courses").on("value", (snapshot) => {
     const btn = document.createElement("button");
     btn.setAttribute("class", "enroll-btn");
     btn.innerText = "설명";
-    // 설명 버튼 클릭 시 모달 오픈
-    btn.addEventListener("click", () => {
-      openModal(
-        course.courseName,
-        course.explanation,
-        course.maxPeople,
-        course.nowPeople
-      );
-    });
+    // 정원이 다 찼으면 버튼 비활성화 및 안내
+    if (course.nowPeople >= course.maxPeople) {
+      btn.disabled = true;
+      btn.innerText = "정원 마감";
+      btn.style.background = "#ccc";
+      btn.style.cursor = "not-allowed";
+    } else {
+      // 설명 버튼 클릭 시 모달 오픈
+      btn.addEventListener("click", () => {
+        openModal(
+          course.courseName,
+          course.explanation,
+          course.maxPeople,
+          course.nowPeople
+        );
+      });
+    }
     course_item.appendChild(h);
     course_item.appendChild(btn);
     course_list.appendChild(course_item);
@@ -71,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// home.js 등에서
 database
   .ref("opentime")
   .once("value")
