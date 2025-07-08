@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수강신청 오픈 시간 안내</title>
+  <link rel="icon" type="image/png" href="./channels4_profile.jpg">
+  <style>
+    /* 오픈 시간 안내 스타일 */
+    .opentime-container {
+      max-width: 500px;
+      margin: 100px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(33,150,243,0.1);
+      padding: 40px 30px;
+      text-align: center;
+    }
+    .opentime-title {
+      color: #2196F3;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .opentime-time {
+      font-size: 1.3em;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .opentime-footer {
+      color: #888;
+      font-size: 0.95em;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="opentime-container">
+    <div class="opentime-title">수강신청 오픈 전입니다</div>
+    <div class="opentime-time" id="openTimeText">오픈 시간을 불러오는 중...</div>
+    <div class="opentime-footer">오픈 시간이 되면 새로고침 해주세요!<hr>치악고등학교 수강신청 시스템</div>
+  </div>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyC_Ty8iUullX5NzV8K9eiMuDAsviM2UTr0",
+  authDomain: "chiaksugangsincheong.firebaseapp.com",
+  databaseURL: "https://chiaksugangsincheong-default-rtdb.firebaseio.com",
+  projectId: "chiaksugangsincheong",
+  storageBucket: "chiaksugangsincheong.firebasestorage.app",
+  messagingSenderId: "673330568301",
+  appId: "1:673330568301:web:03ca452797d15e46d87364",
+  measurementId: "G-N8HDX69BKR",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // opentime 정보 불러와서 표시
+    database.ref("opentime").once("value").then(snap => {
+      const d = snap.val();
+      if (!d) {
+        document.getElementById("openTimeText").textContent = "오픈 시간이 아직 등록되지 않았습니다.";
+        return;
+      }
+      console.log(d.timestamp)
+      if (Date.now() > d.timestamp) {
+      window.location.href = "./index.html";
+    }
+      // 날짜 포맷팅
+      const msg = `${d.year}년 ${d.month}월 ${d.day}일 ${d.hour}시 ${d.minute}분`;
+      document.getElementById("openTimeText").textContent = `수강신청 오픈 예정: ${msg}`;
+    });
+  </script>
+</body>
+</html>

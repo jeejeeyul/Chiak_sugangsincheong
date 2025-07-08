@@ -70,3 +70,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// home.js 등에서
+database
+  .ref("opentime")
+  .once("value")
+  .then((snap) => {
+    const d = snap.val();
+    if (d && Date.now() < d.timestamp) {
+      window.location.href = "./opentime.html";
+    }
+  });
